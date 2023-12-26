@@ -1,0 +1,242 @@
+---
+title: "L04 Data Types"
+subtitle: "Foundations of Data Science with R (STAT 359)"
+author: "YOUR NAME"
+
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: show
+    link-external-newwindow: true
+
+execute:
+  warning: false
+  
+from: markdown+emoji 
+---
+
+::: {.callout-tip icon=false}
+
+## Github Repo Link
+
+To link to your github **repo**sitory, appropriately edit the example link below. Meaning replace `https://your-github-repo-url` with your github repo url. Suggest verifying the link works before submitting.
+
+[https://your-github-repo-url](https://your-github-repo-url)
+
+:::
+
+
+## Overview
+
+The goal of this lab is to learn about the different data types. In particular, how to deal with factors, dates, and time in R, specifically within the tidyverse (although many of these methods can be applied with base R functions as well). 
+
+- Factors are used to work with categorical variables, or variables that have a fixed and known set of possible values. We'll use the `forcats` package, which provides tools for dealing with categorical variables. 
+- The `lubridate` package makes it easier to work with dates and times within R in an intuitive framework with methods that can handle time zones, leap days, daylight savings times, and other issues related to time. 
+
+These resources may help:
+
+* [`forcats` tidyverse homepage](http://forcats.tidyverse.org/reference/index.html).
+* [`lubridate` tidyverse homepage](http://lubridate.tidyverse.org/reference/index.html)
+* [`lubridate` vignette (highly recommend)](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html)
+
+## Load packages
+
+You should always begin by loading all necessary packages towards the beginning of your document.
+
+```{r}
+#| label: load-pkgs
+#| code-fold: false
+
+# Loading package(s)
+
+```
+
+## Datasets 
+
+We will be using the `gss_cat` dataset that is included in the `forcats` package. To view the documentation for the dataset, use `?gss_cat`.    
+
+
+For exercises 9 and 10, we will be utilizing a modified version the familiar `flights` dataset from `nycflights13` for all exercises involving variables associated with `flights` (see `?flights` for documentation).
+
+::: {.callout-note}
+You will need to use `flights_dt` which is built in [Chapter 18 Dates and times](https://r4ds.hadley.nz/datetimes).
+:::
+
+## Exercises
+
+### Exercise 1 
+
+A few of the common data types in R include numeric, integer, character, factor, and logical/boolean. 
+
+What is the difference between a character and factor variable?
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+### Exercise 2 
+
+The variable `marital` has 6 levels: `"No answer"`, `"Never married"`, `"Separated"`, `"Divorced"`, `"Widowed"`, `"Married"`.
+
+Reorder the levels to be `"Married"`, `"Never married"`, `"Separated"`, `"Divorced"`, `"Widowed"`, `"No answer"`.
+
+This should be done within `mutate()` and store this new dataset, maybe call it `gss_clean`.
+
+Prove this was successful by making a simple bar chart.
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+### Exercise 3
+
+The variable `marital` has 6 levels: `"No answer"`, `"Never married"`, `"Separated"`, `"Divorced"`, `"Widowed"`, `"Married"`. Change the level `"Never married"` to read as `"single"` and lowercase all the other levels ie: `"married"`, `"separated"`, ...
+
+Prove this was successful by making a simple bar chart.
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+
+### Exercise 4
+
+What happens when you are defining levels in a `factor()` with the `levels` argument and either do not define a level that exists in the dataset or have a typo in a level that exists in the dataset? 
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+### Exercise 5
+
+The variable `year` is currently coded as an integer. Demonstrate how to convert this variable to a `factor`.
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+### Exercise 6
+
+Demonstrate how to collapse `rincome` into a smaller set of categories.
+
+Prove this was successful by making a bar chart.
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+
+### Exercise 7 
+
+At the top of the document in the yaml header, define the `date` to be the current date using `today`.
+
+Might be helpful: [Quarto Dates](https://quarto.org/docs/reference/dates.html)
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+### Exercise 8
+
+What happens if you try to parse a string that contains invalid dates, like this one?
+
+```{r}
+#| label: ex-01
+#| code-fold: false
+#| eval: false
+
+# invalid string example
+ymd(c("2010-10-10", "bananas"))
+```
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+### Exercise 9
+
+Use the appropriate `lubridate` function to parse each of the following dates within `mutate`:
+
+```{r}
+#| label: ex-09
+#| code-fold: false
+#| eval: false
+
+date_tibble <- tibble(d1 = "January 1, 2010",
+                      d2 = "2015-Mar-07",
+                      d3 = "06-Jun-2017",
+                      d4 = "August 19 (2015)",
+                      d5 = "12/30/14")
+```
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+
+### Exercise 10
+
+Compare `dep_time`, `sched_dep_time` and `dep_delay`. Are they consistent? Explain your findings.
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+### Exercise 11
+
+On what day of the week should you leave if you want to minimize the chance of a delay?
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
+
+### Exercise 12
+
+Create a tibble with 3 variables containing the following:
+
+1. every month in a year (i.e., `"January"`),
+2. the date of the first day of every month (i.e., `"2022-01-01"`), and 
+3. the day of the week that each first day falls on (i.e., `"Tuesday"`). 
+
+::: {.callout-tip icon="false"}
+## Solution
+
+YOUR SOLUTION HERE
+
+:::
+
